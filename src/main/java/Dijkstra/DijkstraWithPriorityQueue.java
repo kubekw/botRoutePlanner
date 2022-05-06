@@ -91,8 +91,6 @@ public class DijkstraWithPriorityQueue {
   private static <N> BotPath buildPath(NodeWrapper<N> nodeWrapper) {
     List<String> path = new ArrayList<>();
     double totalDistance = nodeWrapper.getTotalDistance();
-    //SOUT DISTANCE
-    System.out.println(nodeWrapper.getTotalDistance());
     while (nodeWrapper != null) {
       path.add(nodeWrapper.getNode().toString());
       nodeWrapper = nodeWrapper.getPredecessor();
@@ -102,17 +100,4 @@ public class DijkstraWithPriorityQueue {
     return new BotPath(numberOfMoves,totalDistance,path);
   }
 
-//  private static <N> List<N> buildPath(NodeWrapper<N> nodeWrapper) {
-//    List<N> path = new ArrayList<>();
-//    double totalDistance = nodeWrapper.getTotalDistance();
-//    //SOUT DISTANCE
-//    System.out.println(nodeWrapper.getTotalDistance());
-//    while (nodeWrapper != null) {
-//      path.add(nodeWrapper.getNode());
-//      nodeWrapper = nodeWrapper.getPredecessor();
-//    }
-//    int numberOfMoves = path.size();
-//    Collections.reverse(path);
-//    return path;
-//  }
 }

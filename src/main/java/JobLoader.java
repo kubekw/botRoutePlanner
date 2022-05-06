@@ -16,18 +16,13 @@ public class JobLoader {
     }
 
     public Job readJobFromInputFile() throws FileNotFoundException {
-
         Scanner scanner = new Scanner(jobFile);
-
         int lineNumber = 0;
         String line;
 
         while (scanner.hasNext()) {
             line = scanner.nextLine();
             lineNumber++;
-
-            System.out.println(line);
-
             if (lineNumber == 1) {
                 String[] botStartPosition = line.split(" ");
                 botStartX = Integer.parseInt(botStartPosition[0]);
@@ -44,14 +39,6 @@ public class JobLoader {
                 productName = line;
             }
         }
-
-
-        //TESTY
-        System.out.println("Bot start position: " + botStartX + " " + botStartY);
-        System.out.println("Bot finish position: " + botFinishX + " " + botFinishY);
-        System.out.println("Product to pickUp: " + productName);
-
         return new Job(botStartX, botStartY,botFinishX,botFinishY,productName);
     }
-
 }

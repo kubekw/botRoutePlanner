@@ -19,7 +19,6 @@ public class GridLoader {
     public Grid readGridFromInputFile() throws FileNotFoundException {
 
         Scanner scanner = new Scanner(gridFile);
-
         int lineNumber=0;
         String line;
 
@@ -32,7 +31,6 @@ public class GridLoader {
                 gridSizeX = Integer.parseInt(gridSize[0]);
                 gridSizeY = Integer.parseInt(gridSize[1]);
                 gridSizeN = Integer.parseInt(gridSize[2]);
-
                 moduleTypes = new char[gridSizeY][gridSizeX];
             }
 
@@ -46,31 +44,12 @@ public class GridLoader {
 
             if(lineNumber>gridSizeY+1){
                 String[] productWithLocation = line.split(" ");
-
                 String name = productWithLocation[0];
                 int x = Integer.parseInt(productWithLocation[1]);
                 int y = Integer.parseInt(productWithLocation[2]);
                 int n = Integer.parseInt(productWithLocation[3]);
-
                 productsOnGrid.add(new Product(name, x, y, n));
             }
-        }
-
-
-        //TESTY
-        System.out.println(gridSizeX);
-        System.out.println(gridSizeY);
-        System.out.println(gridSizeN);
-
-        for (int i = 0; i < moduleTypes.length; i++) {
-            for (int j = 0; j < moduleTypes[i].length; j++) {
-                System.out.print(moduleTypes[i][j]);
-            }
-            System.out.println();
-        }
-
-        for (Product p:productsOnGrid){
-            System.out.println(p.getName()+" "+p.getX()+" "+p.getY()+" "+p.getN());
         }
         return new Grid(gridSizeX,gridSizeY,gridSizeN,moduleTypes,productsOnGrid);
     }

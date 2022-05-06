@@ -26,11 +26,6 @@ public class Grid {
         for (Product p : productsOnGrid){
             p.setAccssTime(gridOfModules[p.getY()][p.getX()].getPickUpTime(p.getN()));
         }
-
-        //TEST
-        for (Product p: productsOnGrid){
-            System.out.println(p.getName()+" x:"+ p.getX()+" "+p.getY()+" "+p.getN()+" access time: "+p.getAccssTime());
-        }
     }
 
     public int getGridSizeX() {

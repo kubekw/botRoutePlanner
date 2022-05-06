@@ -36,4 +36,16 @@ public class BotPath {
     public void setMovesList(List<String> movesList) {
         this.movesList = movesList;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getMovesNumber()+System.lineSeparator());
+        stringBuilder.append(getTotalTime() +System.lineSeparator());
+        for(String str:getMovesList()){
+            stringBuilder.append(str+System.lineSeparator());
+        }
+
+        return stringBuilder.toString();
+    }
 }
