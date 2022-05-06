@@ -8,7 +8,6 @@ public class GraphFromGrid {
 
     public static BotPath findShortestPath(ValueGraph<String, Double> graph, String source, String target) {
         BotPath shortestPath = DijkstraWithPriorityQueue.findShortestPath(graph, source, target);
-       // System.out.printf("shortestPath from %s to %s = %s%n", source, target, shortestPath.getMovesList());
         return shortestPath;
     }
 
@@ -16,9 +15,7 @@ public class GraphFromGrid {
         MutableValueGraph<String, Double> graph = ValueGraphBuilder.undirected().build();
         for (int y = 0; y < grid.getGridSizeY(); y++) {
             for (int x = 0; x < grid.getGridSizeX(); x++) {
-                //polaczenia poziome
                 if (x < grid.getGridSizeX() - 1) {
-                    // predkość polaczenia
                     if (modulesAreAccessible(grid.getGridOfModules()[y][x].type,
                             grid.getGridOfModules()[y][x + 1].type)) {
                         double slowerSpeed = findSlowerDriveThruSpeed(grid.getGridOfModules()[y][x].getDriveThruSpeed(),
@@ -26,7 +23,6 @@ public class GraphFromGrid {
                         graph.putEdgeValue(createVertex(y, x), createVertex(y, x + 1), slowerSpeed);
                     }
                 }
-                //polaczenia pionowe
                 if (y < grid.getGridSizeY() - 1) {
                     if (modulesAreAccessible(grid.getGridOfModules()[y][x].type,
                             grid.getGridOfModules()[y+1][x].type)) {

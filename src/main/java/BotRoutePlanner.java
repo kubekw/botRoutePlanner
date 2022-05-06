@@ -6,45 +6,55 @@ import java.util.List;
 
 public class BotRoutePlanner {
 
-    public static void BotRoutePlanner(Grid grid, Job job, ValueGraph<String, Double> graph) {
+    public static String BotRoutePlanner(Grid grid, Job job, ValueGraph<String, Double> graph) {
 
-        String start = job.getBotStartX()+" "+ job.getBotStartY();
-        String finish = job.getBotFinishX()+" "+ job.getBotFinishY();
+        String botStartPoint = createPoint(job.getBotStartX(), job.getBotStartY());
+        String botFinishPoint = createPoint(job.getBotFinishX(), job.getBotFinishY());
 
         BotPath fastestBotPath = null;
 
-        for (Product p : grid.getProductsOnGrid()) {
-            if (p.getName().equals(job.getProductName())) {
-                String target = p.getX() + " " + p.getY();
-                BotPath pathFromStartToProtuct = GraphFromGrid.findShortestPath(graph, start, target);
-                BotPath pathFromProductToFinish = GraphFromGrid.findShortestPath(graph, target, finish);
+        for (Product product : grid.getProductsOnGrid()) {
+            if (product.getName().equals(job.getProductName())) {
+                String productLocation = createPoint(product.getX(), product.getY());
+                BotPath pathFromStartToProduct = GraphFromGrid.findShortestPath(graph, botStartPoint, productLocation);
+                BotPath pathFromProductToFinish = GraphFromGrid.findShortestPath(graph, productLocation, botFinishPoint);
 
-                double totalTime = pathFromStartToProtuct.getTotalTime() +
-                        pathFromProductToFinish.getTotalTime() + p.getAccssTime();
-
-                int numberOfMoves = pathFromStartToProtuct.getMovesNumber() +
-                        pathFromProductToFinish.getMovesNumber();
-
-                List<String> listOfMoves = new ArrayList<>();
-                listOfMoves.addAll(pathFromStartToProtuct.getMovesList());
-
-                //usuniecie pietwszego elementu (drugiego startu)
-                pathFromProductToFinish.getMovesList().remove(0);
-                listOfMoves.addAll(pathFromProductToFinish.getMovesList());
+                double totalTime = getTotalTime(product, pathFromStartToProduct, pathFromProductToFinish);
+                int numberOfMoves = countMoves(pathFromStartToProduct, pathFromProductToFinish);
+                List<String> listOfMoves = createListOfMoves(pathFromStartToProduct, pathFromProductToFinish);
 
                 BotPath botPathFromStartToFinishWithPickUpTime = new BotPath(numberOfMoves, totalTime, listOfMoves);
-                if (fastestBotPath == null || fastestBotPath.getTotalTime() > botPathFromStartToFinishWithPickUpTime.getTotalTime()) {
+                if (newPathIsFasterThenFastestBotPath(fastestBotPath, botPathFromStartToFinishWithPickUpTime)) {
                     fastestBotPath = botPathFromStartToFinishWithPickUpTime;
                 }
             }
         }
-
-        //TODO poprawne wyświetlanie + Format
-//        System.out.println(fastestBotPath.getMovesNumber());
-//        System.out.println(fastestBotPath.getTotalTime());
-//        System.out.println(fastestBotPath.getMovesList());
-
-        System.out.println(fastestBotPath.toString());
+        return fastestBotPath.toString();
     }
 
+    private static boolean newPathIsFasterThenFastestBotPath(BotPath fastestBotPath, BotPath botPathFromStartToFinishWithPickUpTime) {
+        return fastestBotPath == null || fastestBotPath.getTotalTime() > botPathFromStartToFinishWithPickUpTime.getTotalTime();
+    }
+
+    private static List<String> createListOfMoves(BotPath pathFromStartToProtuct, BotPath pathFromProductToFinish) {
+        List<String> listOfMoves = new ArrayList<>();
+        listOfMoves.addAll(pathFromStartToProtuct.getMovesList());
+        pathFromProductToFinish.getMovesList().remove(0);
+        listOfMoves.addAll(pathFromProductToFinish.getMovesList());
+        return listOfMoves;
+    }
+
+    private static int countMoves(BotPath pathFromStartToProtuct, BotPath pathFromProductToFinish) {
+        return pathFromStartToProtuct.getMovesNumber() +
+                pathFromProductToFinish.getMovesNumber();
+    }
+
+    private static double getTotalTime(Product p, BotPath pathFromStartToProtuct, BotPath pathFromProductToFinish) {
+        return pathFromStartToProtuct.getTotalTime() +
+                pathFromProductToFinish.getTotalTime() + p.getAccssTime();
+    }
+
+    private static String createPoint(int job, int job1) {
+        return job + " " + job1;
+    }
 }

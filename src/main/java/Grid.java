@@ -12,14 +12,18 @@ public class Grid {
         this.gridSizeX = gridSizeX;
         this.gridSizeY = gridSizeY;
         this.gridSizeN = gridSizeN;
+        fillGridWithRightModules(moduleTypes);
+        this.productsOnGrid = productsOnGrid;
+        setProductsAccessTime();
+    }
+
+    private void fillGridWithRightModules(char[][] moduleTypes) {
         this.gridOfModules = new Module[moduleTypes.length][moduleTypes[0].length];
         for (int i = 0; i < moduleTypes.length; i++) {
             for (int j = 0; j < moduleTypes[i].length; j++) {
                 gridOfModules[i][j] = new Module(moduleTypes[i][j]);
             }
         }
-        this.productsOnGrid = productsOnGrid;
-        setProductsAccessTime();
     }
 
     private void setProductsAccessTime(){

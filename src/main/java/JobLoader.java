@@ -19,26 +19,31 @@ public class JobLoader {
         Scanner scanner = new Scanner(jobFile);
         int lineNumber = 0;
         String line;
-
         while (scanner.hasNext()) {
             line = scanner.nextLine();
             lineNumber++;
             if (lineNumber == 1) {
-                String[] botStartPosition = line.split(" ");
-                botStartX = Integer.parseInt(botStartPosition[0]);
-                botStartY = Integer.parseInt(botStartPosition[1]);
+                loadBotStartPosition(line);
             }
-
             if (lineNumber == 2) {
-                String[] botFinishPosition = line.split(" ");
-                botFinishX = Integer.parseInt(botFinishPosition[0]);
-                botFinishY = Integer.parseInt(botFinishPosition[1]);
+                loadBotFinishPosition(line);
             }
-
             if (lineNumber == 3) {
                 productName = line;
             }
         }
         return new Job(botStartX, botStartY,botFinishX,botFinishY,productName);
+    }
+
+    private void loadBotFinishPosition(String line) {
+        String[] botFinishPosition = line.split(" ");
+        botFinishX = Integer.parseInt(botFinishPosition[0]);
+        botFinishY = Integer.parseInt(botFinishPosition[1]);
+    }
+
+    private void loadBotStartPosition(String line) {
+        String[] botStartPosition = line.split(" ");
+        botStartX = Integer.parseInt(botStartPosition[0]);
+        botStartY = Integer.parseInt(botStartPosition[1]);
     }
 }

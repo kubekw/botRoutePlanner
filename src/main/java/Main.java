@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         //TODO Argumenty Metody main
 
-        File gridFile = new File("grid-2.txt");
-        File jobFile = new File("job-2.txt");
+        File gridFile = new File("grid-1.txt");
+        File jobFile = new File("job-1.txt");
 
         GridLoader gridLoader = new GridLoader(gridFile);
         JobLoader jobLoader = new JobLoader(jobFile);
@@ -16,7 +16,8 @@ public class Main {
         Job job = jobLoader.readJobFromInputFile();
 
         ValueGraph<String, Double> graph = GraphFromGrid.createGraph(grid);
-        BotRoutePlanner.BotRoutePlanner(grid, job, graph);
+        String result = BotRoutePlanner.BotRoutePlanner(grid, job, graph);
+        System.out.println(result);
 
         //TODO testy implemantacji klasy Module
     }
