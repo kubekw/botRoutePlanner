@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+
 /**
  * Implementation of Dijkstra's algorithm with a {@link PriorityQueue} and a data structure holding
  * the actual node, its total distance and its predecessor ({@link NodeWrapper}).
@@ -29,7 +30,7 @@ public class DijkstraWithPriorityQueue {
    * @param <N> the node type
    * @return the shortest path; or {@code null} if no path was found
    */
-  public static <N> List<N> findShortestPath(ValueGraph<N, Double> graph, N source, N target) {
+  public static <N> BotPath findShortestPath(ValueGraph<N, Double> graph, N source, N target) {
     Map<N, NodeWrapper<N>> nodeWrappers = new HashMap<>();
     PriorityQueue<NodeWrapper<N>> queue = new PriorityQueue<>();
     Set<N> shortestPathFound = new HashSet<>();
@@ -87,16 +88,31 @@ public class DijkstraWithPriorityQueue {
     return null;
   }
 
-  private static <N> List<N> buildPath(NodeWrapper<N> nodeWrapper) {
-    List<N> path = new ArrayList<>();
-
+  private static <N> BotPath buildPath(NodeWrapper<N> nodeWrapper) {
+    List<String> path = new ArrayList<>();
+    double totalDistance = nodeWrapper.getTotalDistance();
     //SOUT DISTANCE
     System.out.println(nodeWrapper.getTotalDistance());
     while (nodeWrapper != null) {
-      path.add(nodeWrapper.getNode());
+      path.add(nodeWrapper.getNode().toString());
       nodeWrapper = nodeWrapper.getPredecessor();
     }
+    int numberOfMoves = path.size()-1;
     Collections.reverse(path);
-    return path;
+    return new BotPath(numberOfMoves,totalDistance,path);
   }
+
+//  private static <N> List<N> buildPath(NodeWrapper<N> nodeWrapper) {
+//    List<N> path = new ArrayList<>();
+//    double totalDistance = nodeWrapper.getTotalDistance();
+//    //SOUT DISTANCE
+//    System.out.println(nodeWrapper.getTotalDistance());
+//    while (nodeWrapper != null) {
+//      path.add(nodeWrapper.getNode());
+//      nodeWrapper = nodeWrapper.getPredecessor();
+//    }
+//    int numberOfMoves = path.size();
+//    Collections.reverse(path);
+//    return path;
+//  }
 }

@@ -1,3 +1,4 @@
+import Dijkstra.BotPath;
 import com.google.common.graph.ValueGraph;
 
 import java.io.File;
@@ -13,12 +14,19 @@ public class Main {
         GridLoader gridLoader = new GridLoader(gridFile);
         JobLoader jobLoader = new JobLoader(jobFile);
 
-
         Grid grid = gridLoader.readGridFromInputFile();
         Job job = jobLoader.readJobFromInputFile();
 
         ValueGraph<String, Double> graph = GraphFromGrid.createGraph(grid);
-        GraphFromGrid.findAndPrintShortestPath(graph,"0 0","2 3");
+        BotPath botPath = GraphFromGrid.findAndPrintShortestPath(graph,"0 0","2 3");
+
+
+
+
+        //TEST BotPath
+        System.out.println(botPath.getMovesNumber());
+        System.out.println(botPath.getTotalTime());
+        System.out.println(botPath.getMovesList());
 
 //
 //        //TODO testy implemantacji klasy Module

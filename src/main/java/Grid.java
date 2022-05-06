@@ -5,7 +5,6 @@ public class Grid {
     private int gridSizeX;
     private int gridSizeY;
     private int gridSizeN;
-    //TODO private
     private Module[][] gridOfModules;
     private ArrayList<Product> productsOnGrid;
 

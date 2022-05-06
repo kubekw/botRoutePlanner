@@ -1,3 +1,4 @@
+import Dijkstra.BotPath;
 import Dijkstra.DijkstraWithPriorityQueue;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraph;
@@ -7,10 +8,10 @@ import java.util.List;
 
 public class GraphFromGrid {
 
-    public static void findAndPrintShortestPath(
-            ValueGraph<String, Double> graph, String source, String target) {
-        List<String> shortestPath = DijkstraWithPriorityQueue.findShortestPath(graph, source, target);
-        System.out.printf("shortestPath from %s to %s = %s%n", source, target, shortestPath);
+    public static BotPath findAndPrintShortestPath(ValueGraph<String, Double> graph, String source, String target) {
+        BotPath shortestPath = DijkstraWithPriorityQueue.findShortestPath(graph, source, target);
+        System.out.printf("shortestPath from %s to %s = %s%n", source, target, shortestPath.getMovesList());
+        return shortestPath;
     }
 
     public static ValueGraph<String, Double> createGraph(Grid grid) {
