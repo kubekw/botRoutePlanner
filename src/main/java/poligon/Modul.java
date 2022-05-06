@@ -2,10 +2,10 @@ package poligon;
 
 public class Modul {
 
-    int x;
-    int y;
-    String Typ;
-    String Opis;
+    private int x;
+    private int y;
+    private String Typ;
+    private String Opis;
 
     public Modul() {
     }
@@ -41,4 +41,5 @@ public class Modul {
     public void setOpis(String opis) {
         Opis = opis;
     }
+
 }

@@ -4,12 +4,21 @@ public class Product {
     private int x;
     private int y;
     private int n;
+    private double accssTime;
 
     public Product(String name, int x, int y, int n) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.n = n;
+    }
+
+    public double getAccssTime() {
+        return accssTime;
+    }
+
+    public void setAccssTime(double accssTime) {
+        this.accssTime = accssTime;
     }
 
     public String getName() {
