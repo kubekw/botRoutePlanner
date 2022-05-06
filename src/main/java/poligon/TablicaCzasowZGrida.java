@@ -1,3 +1,5 @@
+package poligon;
+
 class TablicaCzasowZGrida {
 
     public static void main(String[] args) {
@@ -13,7 +15,6 @@ class TablicaCzasowZGrida {
             }
             System.out.println(System.lineSeparator());
         }
-
 
         for (int y = 0; y < tablica.length; y++) {
             for (int x = 0; x < tablica[y].length; x++) {

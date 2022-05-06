@@ -1,3 +1,5 @@
+package poligon;
+
 public class Modul {
 
     int x;

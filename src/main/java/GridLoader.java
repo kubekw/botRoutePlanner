@@ -16,7 +16,7 @@ public class GridLoader {
         this.gridFile = gridFile;
     }
 
-    public void readInputFile() throws FileNotFoundException {
+    public Grid readGridFromInputFile() throws FileNotFoundException {
 
         Scanner scanner = new Scanner(gridFile);
 
@@ -57,10 +57,6 @@ public class GridLoader {
         }
 
 
-
-
-
-
         //TESTY
         System.out.println(gridSizeX);
         System.out.println(gridSizeY);
@@ -75,28 +71,7 @@ public class GridLoader {
 
         for (Product p:productsOnGrid){
             System.out.println(p.getName()+" "+p.getX()+" "+p.getY()+" "+p.getN());
-
         }
+        return new Grid(gridSizeX,gridSizeY,gridSizeN,moduleTypes,productsOnGrid);
     }
-
-    public int getGridSizeX() {
-        return gridSizeX;
-    }
-
-    public int getGridSizeY() {
-        return gridSizeY;
-    }
-
-    public int getGridSizeN() {
-        return gridSizeN;
-    }
-
-    public char[][] getModuleTypes() {
-        return moduleTypes;
-    }
-
-    public ArrayList<Product> getProductsOnGrid() {
-        return productsOnGrid;
-    }
-
 }
