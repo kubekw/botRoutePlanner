@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BotRoutePlanner {
 
-    public static String BotRoutePlanner(Grid grid, Job job, ValueGraph<String, Double> graph) {
+    public static BotPath BotRoutePlanner(Grid grid, Job job, ValueGraph<String, Double> graph) {
 
         String botStartPoint = createPoint(job.getBotStartX(), job.getBotStartY());
         String botFinishPoint = createPoint(job.getBotFinishX(), job.getBotFinishY());
@@ -29,7 +29,7 @@ public class BotRoutePlanner {
                 }
             }
         }
-        return fastestBotPath.toString();
+        return fastestBotPath;
     }
 
     private static boolean newPathIsFasterThenFastestBotPath(BotPath fastestBotPath, BotPath botPathFromStartToFinishWithPickUpTime) {

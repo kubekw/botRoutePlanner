@@ -1,13 +1,19 @@
+import Dijkstra.BotPath;
 import com.google.common.graph.ValueGraph;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        //TODO Argumenty Metody main
 
-        File gridFile = new File("grid-1.txt");
-        File jobFile = new File("job-1.txt");
+        if(args==null || args.length<2){
+            System.out.println("You must pass 2 arguments: gridFile and jobFile");
+            return;
+        }
+
+        File gridFile = new File(args[0]);
+        File jobFile = new File(args[1]);
 
         GridLoader gridLoader = new GridLoader(gridFile);
         JobLoader jobLoader = new JobLoader(jobFile);
@@ -16,9 +22,7 @@ public class Main {
         Job job = jobLoader.readJobFromInputFile();
 
         ValueGraph<String, Double> graph = GraphFromGrid.createGraph(grid);
-        String result = BotRoutePlanner.BotRoutePlanner(grid, job, graph);
-        System.out.println(result);
-
-        //TODO testy implemantacji klasy Module
+        BotPath result = BotRoutePlanner.BotRoutePlanner(grid, job, graph);
+        System.out.println(result.toString());
     }
 }

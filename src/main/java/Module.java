@@ -29,7 +29,7 @@ public class Module {
         double driveThruSpeed= switch (type) {
             case H ->  0.5;
             case B ->  1.0;
-            case S ->  2;
+            case S ->  2.0;
             case O ->  0;
         };
         return driveThruSpeed;
