@@ -3,6 +3,8 @@ import com.google.common.graph.ValueGraph;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -18,15 +20,58 @@ public class Main {
         Job job = jobLoader.readJobFromInputFile();
 
         ValueGraph<String, Double> graph = GraphFromGrid.createGraph(grid);
-        BotPath botPath = GraphFromGrid.findAndPrintShortestPath(graph,"0 0","2 3");
 
 
+        //TODO Metoda
 
 
-        //TEST BotPath
-        System.out.println(botPath.getMovesNumber());
-        System.out.println(botPath.getTotalTime());
-        System.out.println(botPath.getMovesList());
+        String start = "1 1";
+        String finish = "0 0";
+
+
+        List<BotPath> botPathsList = new ArrayList<>();
+
+        for (Product p : grid.getProductsOnGrid()) {
+            if (p.getName().equals("P1")) {
+                String target = p.getY() + " " + p.getX();
+                BotPath pathFromStartToProtuct = GraphFromGrid.findAndPrintShortestPath(graph, start, target);
+                BotPath pathFromProductToFinish = GraphFromGrid.findAndPrintShortestPath(graph, target, finish);
+
+                double totalTime=pathFromStartToProtuct.getTotalTime()+
+                        pathFromProductToFinish.getTotalTime()+p.getAccssTime();
+
+                int numberOfMoves = pathFromStartToProtuct.getMovesNumber()+
+                        pathFromProductToFinish.getMovesNumber();
+
+                List<String> listOfMoves = new ArrayList<>();
+                listOfMoves.addAll(pathFromStartToProtuct.getMovesList());
+
+                //usuniecie pietwszego elementu (drugiego startu)
+                pathFromProductToFinish.getMovesList().remove(0);
+                listOfMoves.addAll(pathFromProductToFinish.getMovesList());
+
+                BotPath botPathFromStartToFinishWithPickUpTime = new BotPath(numberOfMoves, totalTime,listOfMoves);
+                botPathsList.add(botPathFromStartToFinishWithPickUpTime);
+            }
+        }
+
+        for(BotPath b : botPathsList){
+            System.out.println(b.getMovesNumber());
+            System.out.println(b.getTotalTime());
+            System.out.println(b.getMovesList());
+        }
+
+        //TODO trasa z punktu startowego do kazdego produktu i do punktu koncowego
+
+//        BotPath botPath = GraphFromGrid.findAndPrintShortestPath(graph,"0 0","2 3");
+//
+//
+//
+//
+//        //TEST BotPath
+//        System.out.println(botPath.getMovesNumber());
+//        System.out.println(botPath.getTotalTime());
+//        System.out.println(botPath.getMovesList());
 
 //
 //        //TODO testy implemantacji klasy Module
